@@ -77,6 +77,10 @@ function M.round(num)
   return math.floor(num + 0.5)
 end
 
+function M.height()
+  return vim.o.lines - vim.o.cmdheight
+end
+
 --- @param opts ZenOptions
 function M.layout(opts)
   local width = vim.o.columns
@@ -87,19 +91,19 @@ function M.layout(opts)
   end
   width = math.min(width, vim.o.columns)
 
-  local height = vim.o.lines
+  local height = M.height()
   if opts.window.height > 1 then
     height = opts.window.height
   else
     height = height * opts.window.height
   end
-  height = math.min(height, vim.o.lines)
+  height = math.min(height, M.height())
 
   return {
     width = M.round(width),
     height = M.round(height),
     col = M.round((vim.o.columns - width) / 2),
-    row = M.round((vim.o.lines - height) / 2),
+    row = M.round((M.height() - height) / 2),
   }
 end
 
@@ -107,12 +111,12 @@ end
 function M.fix_layout(win_resized)
   if M.is_open() then
     if win_resized then
-      vim.api.nvim_win_set_config(M.bg_win, { width = vim.o.columns, height = vim.o.lines })
+      vim.api.nvim_win_set_config(M.bg_win, { width = vim.o.columns, height = M.height() })
     end
     local height = vim.api.nvim_win_get_height(M.win)
     local width = vim.api.nvim_win_get_width(M.win)
     local col = M.round((vim.o.columns - width) / 2)
-    local row = M.round((vim.o.lines - height) / 2)
+    local row = M.round((M.height() - height) / 2)
     local cfg = vim.api.nvim_win_get_config(M.win)
     -- HACK: col is an array?
     local wcol = type(cfg.col) == "number" and cfg.col or cfg.col[false]
@@ -134,7 +138,7 @@ function M.create(opts)
   ok, M.bg_win = pcall(vim.api.nvim_open_win, M.bg_buf, false, {
     relative = "editor",
     width = vim.o.columns,
-    height = vim.o.lines,
+    height = M.height(),
     focusable = false,
     row = 0,
     col = 0,
