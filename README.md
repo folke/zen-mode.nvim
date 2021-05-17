@@ -71,7 +71,7 @@ EOF
     -- * a percentage of the width / height of the editor when <= 1
     width = 120, -- width of the Zen window
     height = 1, -- height of the Zen window
-    -- by default, no options are changed in for the Zen window
+    -- by default, no options are changed for the Zen window
     -- uncomment any of the options below, or add other vim.wo options you want to apply
     options = {
       -- signcolumn = "no", -- disable signcolumn
@@ -96,7 +96,7 @@ EOF
     },
   },
   -- callback where you can add custom code when the Zen window opens
-  on_open = function(_win)
+  on_open = function(win)
   end,
   -- callback where you can add custom code when the Zen window closes
   on_close = function()
@@ -113,7 +113,7 @@ Alternatively you can start **Zen Mode** with the `Lua` API and pass any additio
 ```lua
 require("zen-mode").toggle({
   window = {
-    width = .85
+    width = .85 -- width will be 85% of the editor width
   }
 })
 ```
