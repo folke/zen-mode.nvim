@@ -8,7 +8,7 @@ Distraction-free coding for Neovim >= 0.5
 
 * opens the current buffer in a new full-screen floating window
 * doesn't mess with existing window layouts / splits
-* works correctly with other floating windows, like LSP hover etc
+* works correctly with other floating windows, like LSP hover, WhichKey, ...
 * you can dynamically change the window size
 * realigns when the editor or Zen window is resized
 * optionally shade the backdrop of the Zen window
@@ -21,6 +21,7 @@ Distraction-free coding for Neovim >= 0.5
   - increase [Kitty](https://sw.kovidgoyal.net/kitty/) font-size
 * **Zen Mode** is automatically closed when a new non-floating window is opened
 * works well with plugins like [Telescope](https://github.com/nvim-telescope/telescope.nvim) to open a new buffer inside the Zen window
+* close the Zen window with `:ZenMode`, `:close` or `:quit`
 
 ## ⚡️ Requirements
 
