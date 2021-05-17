@@ -1,4 +1,5 @@
 local config = require("zen-mode.config")
+local util = require("zen-mode.util")
 local plugins = require("zen-mode.plugins")
 local M = {}
 
@@ -129,7 +130,8 @@ function M.create(opts)
   M.state = {}
 
   M.bg_buf = vim.api.nvim_create_buf(false, true)
-  M.bg_win = vim.api.nvim_open_win(M.bg_buf, false, {
+  local ok
+  ok, M.bg_win = pcall(vim.api.nvim_open_win, M.bg_buf, false, {
     relative = "editor",
     width = vim.o.columns,
     height = vim.o.lines,
@@ -139,6 +141,11 @@ function M.create(opts)
     style = "minimal",
     zindex = opts.zindex - 10,
   })
+  if not ok then
+    util.error("could not open floating window. You need a Neovim build that supports zindex (May 15 2021 or newer)")
+    M.bg_win = nil
+    return
+  end
   M.fix_hl(M.bg_win, "ZenBg")
 
   local win_opts = vim.tbl_extend("keep", {
