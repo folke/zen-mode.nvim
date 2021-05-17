@@ -18,6 +18,19 @@ function M.gitsigns(state, disable)
   gs.refresh()
 end
 
+function M.options(state, disable, opts)
+  for key, value in pairs(opts) do
+    if key ~= "enabled" then
+      if disable then
+        state[key] = vim.o[key]
+        vim.o[key] = value
+      else
+        vim.o[key] = state[key]
+      end
+    end
+  end
+end
+
 -- changes the kitty font size
 -- it's a bit glitchy, but it works
 function M.kitty(state, disable, opts)
