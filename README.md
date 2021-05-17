@@ -16,6 +16,8 @@ Distraction-free coding for Neovim >= 0.5
   - disable gitsigns
   - hide [tmux](https://github.com/tmux/tmux) status line
   - increase [Kitty](https://sw.kovidgoyal.net/kitty/) font-size
+* **Zen Mode** is automatically closed when a new non-floating window is opened
+* works well with plugins like [Telescope](https://github.com/nvim-telescope/telescope.nvim) to open a new buffer inside the Zen window
 
 ## ⚡️ Requirements
 
