@@ -122,3 +122,9 @@ require("zen-mode").toggle({
   }
 })
 ```
+
+## Inspiration
+
+* Visual Studio Code [Zen Mode](https://code.visualstudio.com/docs/getstarted/userinterface#_zen-mode)
+* Emacs [writeroom-mode](https://github.com/joostkremers/writeroom-mode)
+
