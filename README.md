@@ -2,6 +2,8 @@
 
 Distraction-free coding for Neovim >= 0.5
 
+![image](https://user-images.githubusercontent.com/292349/118454007-b7d8c900-b6ac-11eb-8263-015a8d929644.png)
+
 ## ✨ Features
 
 * opens the current buffer in a new full-screen floating window
