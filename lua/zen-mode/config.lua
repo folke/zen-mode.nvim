@@ -1,4 +1,4 @@
-local util = require("zen.util")
+local util = require("zen-mode.util")
 local M = {}
 
 --- @type ZenOptions

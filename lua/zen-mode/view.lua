@@ -1,5 +1,5 @@
-local config = require("zen.config")
-local plugins = require("zen.plugins")
+local config = require("zen-mode.config")
+local plugins = require("zen-mode.plugins")
 local M = {}
 
 M.bg_win = nil
@@ -169,12 +169,12 @@ function M.create(opts)
   local augroup = [[
     augroup Zen
       autocmd!
-      autocmd WinClosed %d ++once ++nested lua require("zen.view").close()
-      autocmd WinEnter * lua require("zen.view").on_win_enter()
-      autocmd CursorMoved * lua require("zen.view").fix_layout()
-      autocmd VimResized * lua require("zen.view").fix_layout(true)
-      autocmd CursorHold * lua require("zen.view").fix_layout()
-      autocmd BufWinEnter %d lua require("zen.view").on_buf_win_enter()
+      autocmd WinClosed %d ++once ++nested lua require("zen-mode.view").close()
+      autocmd WinEnter * lua require("zen-mode.view").on_win_enter()
+      autocmd CursorMoved * lua require("zen-mode.view").fix_layout()
+      autocmd VimResized * lua require("zen-mode.view").fix_layout(true)
+      autocmd CursorHold * lua require("zen-mode.view").fix_layout()
+      autocmd BufWinEnter %d lua require("zen-mode.view").on_buf_win_enter()
     augroup end]]
 
   vim.api.nvim_exec(augroup:format(M.win, M.win), false)
