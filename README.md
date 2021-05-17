@@ -6,6 +6,7 @@ Distraction-free coding for Neovim >= 0.5
 
 * opens the current buffer in a new full-screen floating window
 * doesn't mess with existing window layouts / splits
+* works correctly with other floating windows, like LSP hover etc
 * you can dynamically change the window size
 * realigns when the editor or Zen window is resized
 * optionally shade the backdrop of the Zen window
