@@ -5,6 +5,7 @@ local M = {}
 
 M.bg_win = nil
 M.bg_buf = nil
+M.parent = nil
 M.win = nil
 --- @type ZenOptions
 M.opts = nil
@@ -53,6 +54,9 @@ function M.close()
     M.plugins_on_close()
     M.opts.on_close()
     M.opts = nil
+    if M.parent and vim.api.nvim_win_is_valid(M.parent) then
+      vim.api.nvim_set_current_win(M.parent)
+    end
   end
 end
 
@@ -132,6 +136,7 @@ function M.create(opts)
   opts = vim.tbl_deep_extend("force", {}, config.options, opts or {})
   M.opts = opts
   M.state = {}
+  M.parent = vim.api.nvim_get_current_win()
 
   M.bg_buf = vim.api.nvim_create_buf(false, true)
   local ok
