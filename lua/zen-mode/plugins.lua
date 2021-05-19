@@ -52,10 +52,10 @@ function M.tmux(state, disable, opts)
     return
   end
   if disable then
-    vim.fn.system([[tmux set -g status off]])
+    vim.fn.system([[tmux set status off]])
     vim.fn.system([[tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z]])
   else
-    vim.fn.system([[tmux set -g status on]])
+    vim.fn.system([[tmux set status on]])
     vim.fn.system([[tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z]])
   end
 end
