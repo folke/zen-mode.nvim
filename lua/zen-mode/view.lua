@@ -198,8 +198,10 @@ end
 
 function M.fix_hl(win, normal)
   normal = normal or "Normal"
-  vim.api.nvim_win_set_option(win, "winhighlight", "NormalFloat:" .. normal)
-  vim.api.nvim_win_set_option(win, "fcs", "eob: ")
+  vim.cmd("setlocal winhl=NormalFloat:" .. normal)
+  vim.cmd([[setlocal fcs=eob:\ ]])
+  -- vim.api.nvim_win_set_option(win, "winhighlight", "NormalFloat:" .. normal)
+  -- vim.api.nvim_win_set_option(win, "fcs", "eob: ")
 end
 
 function M.is_float(win)
