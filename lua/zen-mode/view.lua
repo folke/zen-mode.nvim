@@ -190,18 +190,23 @@ function M.create(opts)
       autocmd CursorMoved * lua require("zen-mode.view").fix_layout()
       autocmd VimResized * lua require("zen-mode.view").fix_layout(true)
       autocmd CursorHold * lua require("zen-mode.view").fix_layout()
-      autocmd BufWinEnter %d lua require("zen-mode.view").on_buf_win_enter()
+      autocmd BufWinEnter * lua require("zen-mode.view").on_buf_win_enter()
     augroup end]]
 
   vim.api.nvim_exec(augroup:format(M.win, M.win), false)
 end
 
 function M.fix_hl(win, normal)
+  local cwin = vim.api.nvim_get_current_win()
+  if cwin ~= win then
+    vim.api.nvim_set_current_win(win)
+  end
   normal = normal or "Normal"
   vim.cmd("setlocal winhl=NormalFloat:" .. normal)
   vim.cmd([[setlocal fcs=eob:\ ]])
   -- vim.api.nvim_win_set_option(win, "winhighlight", "NormalFloat:" .. normal)
   -- vim.api.nvim_win_set_option(win, "fcs", "eob: ")
+  vim.api.nvim_set_current_win(cwin)
 end
 
 function M.is_float(win)
@@ -210,7 +215,9 @@ function M.is_float(win)
 end
 
 function M.on_buf_win_enter()
-  -- M.fix_hl(M.win)
+  if vim.api.nvim_get_current_win() == M.win then
+    M.fix_hl(M.win)
+  end
 end
 
 function M.on_win_enter()
