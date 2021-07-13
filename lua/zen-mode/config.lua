@@ -1,10 +1,7 @@
 local util = require("zen-mode.util")
 local M = {}
 
---- @type ZenOptions
-M.options = {}
-
---- @class ZenOptions
+---@class ZenOptions
 local defaults = {
   zindex = 40, -- zindex of the zen window. Should be less than 50, which is the float default
   window = {
@@ -34,6 +31,7 @@ local defaults = {
       ruler = false, -- disables the ruler text in the cmd line area
       showcmd = false, -- disables the command in the last line of the screen
     },
+    twilight = { enabled = true }, -- enable to start Twilight when zen mode opens
     gitsigns = { enabled = false }, -- disables git signs
     tmux = { enabled = false }, -- disables the tmux statusline
     -- this will change the font size on kitty when in zen mode
@@ -46,12 +44,13 @@ local defaults = {
     },
   },
   -- callback where you can add custom code when the zen window opens
-  on_open = function(_win)
-  end,
+  on_open = function(_win) end,
   -- callback where you can add custom code when the zen window closes
-  on_close = function()
-  end,
+  on_close = function() end,
 }
+
+---@type ZenOptions
+M.options = {}
 
 function M.setup(options)
   M.options = vim.tbl_deep_extend("force", {}, defaults, options or {})

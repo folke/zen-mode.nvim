@@ -6,28 +6,29 @@ Distraction-free coding for Neovim >= 0.5
 
 ## ✨ Features
 
-* opens the current buffer in a new full-screen floating window
-* doesn't mess with existing window layouts / splits
-* works correctly with other floating windows, like LSP hover, WhichKey, ...
-* you can dynamically change the window size
-* realigns when the editor or Zen window is resized
-* optionally shade the backdrop of the Zen window
-* always hides the status line
-* optionally hide the number column, sign column, fold column, ...
-* highly customizable with lua callbacks `on_open`, `on_close`
-* plugins:
+- opens the current buffer in a new full-screen floating window
+- doesn't mess with existing window layouts / splits
+- works correctly with other floating windows, like LSP hover, WhichKey, ...
+- you can dynamically change the window size
+- realigns when the editor or Zen window is resized
+- optionally shade the backdrop of the Zen window
+- always hides the status line
+- optionally hide the number column, sign column, fold column, ...
+- highly customizable with lua callbacks `on_open`, `on_close`
+- plugins:
   - disable gitsigns
   - hide [tmux](https://github.com/tmux/tmux) status line
   - increase [Kitty](https://sw.kovidgoyal.net/kitty/) font-size
-* **Zen Mode** is automatically closed when a new non-floating window is opened
-* works well with plugins like [Telescope](https://github.com/nvim-telescope/telescope.nvim) to open a new buffer inside the Zen window
-* close the Zen window with `:ZenMode`, `:close` or `:quit`
+- **Zen Mode** is automatically closed when a new non-floating window is opened
+- works well with plugins like [Telescope](https://github.com/nvim-telescope/telescope.nvim) to open a new buffer inside the Zen window
+- close the Zen window with `:ZenMode`, `:close` or `:quit`
 
 ## ⚡️ Requirements
 
-* Neovim >= 0.5.0
+- Neovim >= 0.5.0
   - ❗ **Zen Mode** uses the new `z-index` option for floating windows
   - ❗ only builds **newer than May 15, 2021** are supported
+- [Twilight](https://github.com/folke/twilight.nvim) is optional to dim inactive portions of your code
 
 ## 📦 Installation
 
@@ -64,7 +65,7 @@ lua << EOF
 EOF
 ```
 
-## ⚙️  Configuration
+## ⚙️ Configuration
 
 **Zen Mode** comes with the following defaults:
 
@@ -97,6 +98,7 @@ EOF
       ruler = false, -- disables the ruler text in the cmd line area
       showcmd = false, -- disables the command in the last line of the screen
     },
+    twilight = { enabled = true }, -- enable to start Twilight when zen mode opens
     gitsigns = { enabled = false }, -- disables git signs
     tmux = { enabled = false }, -- disables the tmux statusline
     -- this will change the font size on kitty when in zen mode
@@ -133,6 +135,5 @@ require("zen-mode").toggle({
 
 ## Inspiration
 
-* Visual Studio Code [Zen Mode](https://code.visualstudio.com/docs/getstarted/userinterface#_zen-mode)
-* Emacs [writeroom-mode](https://github.com/joostkremers/writeroom-mode)
-
+- Visual Studio Code [Zen Mode](https://code.visualstudio.com/docs/getstarted/userinterface#_zen-mode)
+- Emacs [writeroom-mode](https://github.com/joostkremers/writeroom-mode)

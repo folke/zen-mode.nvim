@@ -2,7 +2,7 @@ local M = {}
 
 function M.gitsigns(state, disable)
   local gs = require("gitsigns")
-  local config = gs._get_config()
+  local config = gs.config
   if disable then
     state.signcolumn = config.signcolumn
     state.numhl = config.numhl
@@ -45,6 +45,17 @@ function M.kitty(state, disable, opts)
     vim.fn.system(cmd:format(socket, "0"))
   end
   vim.cmd([[redraw]])
+end
+
+function M.twilight(state, disable)
+  if disable then
+    state.enabled = require("twilight.view").enabled
+    require("twilight").enable()
+  else
+    if not state.enabled then
+      require("twilight").disable()
+    end
+  end
 end
 
 function M.tmux(state, disable, opts)
