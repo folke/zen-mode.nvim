@@ -2,7 +2,7 @@ local M = {}
 
 function M.gitsigns(state, disable)
   local gs = require("gitsigns")
-  local config = gs.config
+  local config = require("gitsigns.config").config
   if disable then
     state.signcolumn = config.signcolumn
     state.numhl = config.numhl
