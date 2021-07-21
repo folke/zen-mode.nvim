@@ -85,23 +85,22 @@ function M.height()
   return vim.o.lines - vim.o.cmdheight
 end
 
+function M.resolve(max, value)
+  local ret = max
+  if type(value) == "function" then
+    ret = value()
+  elseif value > 1 then
+    ret = value
+  else
+    ret = ret * value
+  end
+  return math.min(ret, max)
+end
+
 --- @param opts ZenOptions
 function M.layout(opts)
-  local width = vim.o.columns
-  if opts.window.width > 1 then
-    width = opts.window.width
-  else
-    width = width * opts.window.width
-  end
-  width = math.min(width, vim.o.columns)
-
-  local height = M.height()
-  if opts.window.height > 1 then
-    height = opts.window.height
-  else
-    height = height * opts.window.height
-  end
-  height = math.min(height, M.height())
+  local width = M.resolve(vim.o.columns, opts.window.width)
+  local height = M.resolve(M.height(), opts.window.height)
 
   return {
     width = M.round(width),
