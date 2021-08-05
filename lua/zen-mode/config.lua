@@ -52,13 +52,18 @@ local defaults = {
 ---@type ZenOptions
 M.options = {}
 
-function M.setup(options)
-  M.options = vim.tbl_deep_extend("force", {}, defaults, options or {})
+function M.colors()
   local normal = util.get_hl("Normal")
   if normal and normal.background then
     local bg = util.darken(normal.background, M.options.window.backdrop)
     vim.cmd(("highlight ZenBg guibg=%s guifg=%s"):format(bg, bg))
   end
+end
+
+function M.setup(options)
+  M.options = vim.tbl_deep_extend("force", {}, defaults, options or {})
+  M.colors()
+  vim.cmd([[autocmd ColorScheme * lua require("zen-mode.config").colors()]])
   for plugin, plugin_opts in pairs(M.options.plugins) do
     if type(plugin_opts) == "boolean" then
       M.options.plugins[plugin] = { enabled = plugin_opts }
