@@ -42,6 +42,12 @@ function M.close()
   -- Change the parent window's cursor position to match
   -- the cursor position in the zen-mode window.
   if M.parent and M.win then
+    -- Ensure that the parent window has the same buffer
+    -- as the zen-mode window.
+    if vim.api.nvim_win_get_buf(M.parent) ~= vim.api.nvim_win_get_buf(M.win) then
+        vim.api.nvim_win_set_buf(M.parent, vim.api.nvim_win_get_buf(M.win))
+    end
+    -- Then, update the parent window's cursor position.
     vim.api.nvim_win_set_cursor(M.parent, vim.api.nvim_win_get_cursor(M.win))
   end
 
@@ -241,3 +247,5 @@ function M.on_win_enter()
 end
 
 return M
+
+
