@@ -114,13 +114,8 @@ end
 function M.fix_layout(win_resized)
   if M.is_open() then
     if win_resized then
-      vim.api.nvim_win_set_config(
-        M.win,
-        vim.tbl_extend("force", vim.api.nvim_win_get_config(M.win), {
-          width = M.resolve(vim.o.columns, M.opts.window.width),
-          height = M.height(),
-        })
-      )
+      local l = M.layout(M.opts)
+      vim.api.nvim_win_set_config(M.win, { width = l.width, height = l.height })
       vim.api.nvim_win_set_config(M.bg_win, { width = vim.o.columns, height = M.height() })
     end
     local height = vim.api.nvim_win_get_height(M.win)
