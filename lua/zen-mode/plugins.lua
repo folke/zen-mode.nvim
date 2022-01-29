@@ -63,10 +63,21 @@ function M.tmux(state, disable, opts)
     return
   end
   if disable then
+    local status_raw = vim.fn.system([[tmux show status]])
+    local window_pane_border_raw = vim.fn.system([[tmux show -w pane-border-status]])
+    state.status = vim.split(vim.trim(status_raw), " ")[2]
+    state.pane = vim.split(vim.trim(window_pane_border_raw), " ")[2]
+
+    vim.fn.system([[tmux set -w pane-border-status off]])
     vim.fn.system([[tmux set status off]])
     vim.fn.system([[tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z]])
   else
-    vim.fn.system([[tmux set status on]])
+    if type(state.pane) == "string" then
+      vim.fn.system(string.format([[tmux set -w pane-border-status %s]], state.pane))
+    else
+      vim.fn.system([[tmux set -uw pane-border-status]])
+    end
+    vim.fn.system(string.format([[tmux set status %s]], state.status))
     vim.fn.system([[tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z]])
   end
 end
