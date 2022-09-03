@@ -71,4 +71,12 @@ function M.tmux(state, disable, opts)
   end
 end
 
+function M.diagnostics(state, disable)
+  if disable then
+    vim.diagnostic.disable(0)
+  else
+    vim.diagnostic.enable(0)
+  end
+end
+
 return M
