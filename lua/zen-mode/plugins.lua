@@ -47,6 +47,16 @@ function M.kitty(state, disable, opts)
   vim.cmd([[redraw]])
 end
 
+function M.wezterm(state, disable, opts)
+  local stdout = vim.loop.new_tty(1, false)
+  if disable then
+    stdout:write(('\x1b]1337;SetUserVar=%s=%s\b'):format('ZEN_MODE', vim.fn.system({ 'base64' }, tostring(opts.font))))
+  else
+    stdout:write(('\x1b]1337;SetUserVar=%s=%s\b'):format('ZEN_MODE', vim.fn.system({ 'base64' }, '-1')))
+  end
+  vim.cmd([[redraw]])
+end
+
 function M.twilight(state, disable)
   if disable then
     state.enabled = require("twilight.view").enabled
