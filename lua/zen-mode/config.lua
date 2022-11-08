@@ -7,7 +7,7 @@ local defaults = {
   window = {
     backdrop = 0.95, -- shade the backdrop of the zen window. Set to 1 to keep the same as Normal
     backdrop_highlight = "Normal",
-    backdrop_color = nil,
+    -- backdrop_color = "FF00FF",
     -- height and width can be:
     -- * an asbolute number of cells when > 1
     -- * a percentage of the width / height of the editor when <= 1
