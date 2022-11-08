@@ -6,6 +6,8 @@ local defaults = {
   zindex = 40, -- zindex of the zen window. Should be less than 50, which is the float default
   window = {
     backdrop = 0.95, -- shade the backdrop of the zen window. Set to 1 to keep the same as Normal
+    backdrop_highlight = "Normal",
+    backdrop_color = nil,
     -- height and width can be:
     -- * an asbolute number of cells when > 1
     -- * a percentage of the width / height of the editor when <= 1
@@ -57,6 +59,12 @@ function M.colors()
   local normal = util.get_hl("Normal")
   if normal and normal.background then
     local bg = util.darken(normal.background, M.options.window.backdrop)
+    if M.options.window.backdrop_highlight then
+        bg = util.darken(util.get_hl(M.options.window.backdrop_highlight).background, M.options.window.backdrop)
+    end
+    if M.options.window.backdrop_color then
+        bg = util.darken(M.options.window.backdrop_color, M.options.window.backdrop)
+    end
     vim.cmd(("highlight ZenBg guibg=%s guifg=%s"):format(bg, bg))
   end
 end
