@@ -47,6 +47,22 @@ function M.kitty(state, disable, opts)
   vim.cmd([[redraw]])
 end
 
+-- changes the alacritty font size
+function M.alacritty(state, disable, opts)
+  if not vim.fn.executable("alacritty") then
+    return
+  end
+  local cmd = "alacritty msg config -w %s font.size=%s"
+  local reset_cmd = "alacritty msg config -w %s --reset"
+  local win_id = vim.fn.expand("$ALACRITTY_WINDOW_ID")
+  if disable then
+    vim.fn.system(cmd:format(win_id, opts.font))
+  else
+    vim.fn.system(reset_cmd:format(win_id))
+  end
+  vim.cmd([[redraw]])
+end
+
 function M.twilight(state, disable)
   if disable then
     state.enabled = require("twilight.view").enabled

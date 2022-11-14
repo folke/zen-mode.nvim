@@ -43,6 +43,13 @@ local defaults = {
       enabled = false,
       font = "+4", -- font size increment
     },
+    -- this will change the font size on alacritty when in zen mode
+    -- requires  Alacritty Version 0.10.0 or higher
+    -- uses `alacritty msg` subcommand to change font size
+    alacritty = {
+      enabled = false,
+      font = "14", -- font size
+    },
   },
   -- callback where you can add custom code when the zen window opens
   on_open = function(_win) end,
