@@ -74,6 +74,7 @@ end
 
 function M.open(opts)
   if not M.is_open() then
+    config.colors(opts)
     -- close any possible remnants from a previous session
     -- shouldn't happen, but just in case
     M.close()
