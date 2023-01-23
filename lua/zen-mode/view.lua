@@ -74,7 +74,6 @@ end
 
 function M.open(opts)
   if not M.is_open() then
-    config.colors(opts)
     -- close any possible remnants from a previous session
     -- shouldn't happen, but just in case
     M.close()
@@ -148,6 +147,7 @@ end
 --- @param opts ZenOptions
 function M.create(opts)
   opts = vim.tbl_deep_extend("force", {}, config.options, opts or {})
+  config.colors(opts)
   M.opts = opts
   M.state = {}
   M.parent = vim.api.nvim_get_current_win()
