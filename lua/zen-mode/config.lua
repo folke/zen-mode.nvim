@@ -60,10 +60,11 @@ local defaults = {
 ---@type ZenOptions
 M.options = {}
 
-function M.colors()
+function M.colors(options)
+  options = options or M.options
   local normal = util.get_hl("Normal")
   if normal and normal.background then
-    local bg = util.darken(normal.background, M.options.window.backdrop)
+    local bg = util.darken(normal.background, options.window.backdrop)
     vim.cmd(("highlight ZenBg guibg=%s guifg=%s"):format(bg, bg))
   end
 end

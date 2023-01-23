@@ -147,6 +147,7 @@ end
 --- @param opts ZenOptions
 function M.create(opts)
   opts = vim.tbl_deep_extend("force", {}, config.options, opts or {})
+  config.colors(opts)
   M.opts = opts
   M.state = {}
   M.parent = vim.api.nvim_get_current_win()
