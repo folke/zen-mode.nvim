@@ -79,10 +79,16 @@ function M.tmux(state, disable, opts)
     return
   end
   if disable then
-    local status_raw = vim.fn.system([[tmux show status]])
-    local window_pane_border_raw = vim.fn.system([[tmux show -w pane-border-status]])
-    state.status = vim.split(vim.trim(status_raw), " ")[2]
-    state.pane = vim.split(vim.trim(window_pane_border_raw), " ")[2]
+    local function get_tmux_opt(option)
+      local option_raw = vim.fn.system([[tmux show -w ]] .. option)
+      if option_raw == "" then
+        option_raw = vim.fn.system([[tmux show -g ]] .. option)
+      end
+      local opt = vim.split(vim.trim(option_raw), " ")[2]
+      return opt
+    end
+    state.status = get_tmux_opt("status")
+    state.pane = get_tmux_opt("pane-border-status")
 
     vim.fn.system([[tmux set -w pane-border-status off]])
     vim.fn.system([[tmux set status off]])
