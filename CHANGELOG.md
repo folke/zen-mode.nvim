@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.0](https://github.com/folke/zen-mode.nvim/compare/v1.0.0...v1.1.0) (2023-02-01)
+
+
+### Features
+
+* alacritty plugin ([#68](https://github.com/folke/zen-mode.nvim/issues/68)) ([48a4269](https://github.com/folke/zen-mode.nvim/commit/48a426953205c5556924f0904c82e23a2c161f72))
+* use transparent bg when Normal hl group not having bg ([#81](https://github.com/folke/zen-mode.nvim/issues/81)) ([00b0e0f](https://github.com/folke/zen-mode.nvim/commit/00b0e0f68d6b4ade6e447462533a5a6a5aa39fcb))
+
+
+### Bug Fixes
+
+* `window.backdrop` option is ignored in `.toggle()` API ([#77](https://github.com/folke/zen-mode.nvim/issues/77)) ([#78](https://github.com/folke/zen-mode.nvim/issues/78)) ([a88f1be](https://github.com/folke/zen-mode.nvim/commit/a88f1be193e904f8c08a6ab4d22e923bd44de7de))
+* **tmux:** can get tmux's option value correctly now ([#71](https://github.com/folke/zen-mode.nvim/issues/71)) ([#72](https://github.com/folke/zen-mode.nvim/issues/72)) ([5d8308e](https://github.com/folke/zen-mode.nvim/commit/5d8308ef39c14ecbd6850b56959094aa932285c6))
+
 ## 1.0.0 (2023-01-04)
 
 
