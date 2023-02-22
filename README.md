@@ -128,6 +128,23 @@ EOF
 }
 ```
 
+### 🔧 Fix `cmdheight = 0` problem.
+
+If you've set `cmdheight = 0`, you _might_ experience some problems (like visible statusline) when you're using **ZenMode**. If this annoys you, you can fix this by adding these lines to your configurations:
+
+```lua
+require("zen-mode").setup({
+	on_open = function(win)
+		vim.o.cmdheight = 1
+	end,
+	on_close = function()
+		vim.o.cmdheight = 0
+	end,
+})
+```
+
+> **NOTE**: You might want to set `vim.bo|vim.go|vim.wo.cmdheight` instead, depending on your configurations.
+
 ## 🚀 Usage
 
 Toggle **Zen Mode** with `:ZenMode`.
