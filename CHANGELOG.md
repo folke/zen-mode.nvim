@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/folke/zen-mode.nvim/compare/v1.1.0...v1.1.1) (2023-03-19)
+
+
+### Bug Fixes
+
+* Make fold and vertical fcs zen ([#85](https://github.com/folke/zen-mode.nvim/issues/85)) ([fc7f1fb](https://github.com/folke/zen-mode.nvim/commit/fc7f1fb40a7d13ea34dd27e645e64c8b431a5269))
+
 ## [1.1.0](https://github.com/folke/zen-mode.nvim/compare/v1.0.0...v1.1.0) (2023-02-01)
 
 
