@@ -178,7 +178,9 @@ function M.create(opts)
 
   local buf = vim.api.nvim_get_current_buf()
   M.win = vim.api.nvim_open_win(buf, true, win_opts)
-  vim.cmd([[norm! zz]])
+  if not vim.bo[buf].buftype == "terminal" then
+    vim.cmd([[norm! zz]])
+  end
   M.fix_hl(M.win)
 
   for k, v in pairs(opts.window.options or {}) do
