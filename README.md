@@ -19,6 +19,7 @@ Distraction-free coding for Neovim >= 0.5
   - disable gitsigns
   - hide [tmux](https://github.com/tmux/tmux) status line
   - increase [Kitty](https://sw.kovidgoyal.net/kitty/) font-size
+  - increase [Alacritty](https://alacritty.org/) font-size
   - increase [wezterm](https://wezfurlong.org/wezterm/) font-size
 - **Zen Mode** is automatically closed when a new non-floating window is opened
 - works well with plugins like [Telescope](https://github.com/nvim-telescope/telescope.nvim) to open a new buffer inside the Zen window
@@ -110,6 +111,13 @@ EOF
     kitty = {
       enabled = false,
       font = "+4", -- font size increment
+    },
+    -- this will change the font size on alacritty when in zen mode
+    -- requires  Alacritty Version 0.10.0 or higher
+    -- uses `alacritty msg` subcommand to change font size
+    alacritty = {
+      enabled = false,
+      font = "14", -- font size
     },
     -- this will change the font size on wezterm when in zen mode
     -- to make this work, you need to set the following function in your wezterm

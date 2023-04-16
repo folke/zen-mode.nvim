@@ -47,6 +47,23 @@ function M.kitty(state, disable, opts)
   vim.cmd([[redraw]])
 end
 
+-- changes the alacritty font size
+function M.alacritty(state, disable, opts)
+  if not vim.fn.executable("alacritty") then
+    return
+  end
+  local cmd = "alacritty msg config -w %s font.size=%s"
+  local reset_cmd = "alacritty msg config -w %s --reset"
+  local win_id = vim.fn.expand("$ALACRITTY_WINDOW_ID")
+  if disable then
+    vim.fn.system(cmd:format(win_id, opts.font))
+  else
+    vim.fn.system(reset_cmd:format(win_id))
+  end
+  vim.cmd([[redraw]])
+end
+
+-- changes the wezterm font size
 function M.wezterm(state, disable, opts)
   local stdout = vim.loop.new_tty(1, false)
   if disable then
@@ -73,10 +90,16 @@ function M.tmux(state, disable, opts)
     return
   end
   if disable then
-    local status_raw = vim.fn.system([[tmux show status]])
-    local window_pane_border_raw = vim.fn.system([[tmux show -w pane-border-status]])
-    state.status = vim.split(vim.trim(status_raw), " ")[2]
-    state.pane = vim.split(vim.trim(window_pane_border_raw), " ")[2]
+    local function get_tmux_opt(option)
+      local option_raw = vim.fn.system([[tmux show -w ]] .. option)
+      if option_raw == "" then
+        option_raw = vim.fn.system([[tmux show -g ]] .. option)
+      end
+      local opt = vim.split(vim.trim(option_raw), " ")[2]
+      return opt
+    end
+    state.status = get_tmux_opt("status")
+    state.pane = get_tmux_opt("pane-border-status")
 
     vim.fn.system([[tmux set -w pane-border-status off]])
     vim.fn.system([[tmux set status off]])

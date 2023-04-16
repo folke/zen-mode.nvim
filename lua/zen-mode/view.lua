@@ -147,6 +147,7 @@ end
 --- @param opts ZenOptions
 function M.create(opts)
   opts = vim.tbl_deep_extend("force", {}, config.options, opts or {})
+  config.colors(opts)
   M.opts = opts
   M.state = {}
   M.parent = vim.api.nvim_get_current_win()
@@ -217,7 +218,7 @@ function M.fix_hl(win, normal)
   normal = normal or "Normal"
   vim.cmd("setlocal winhl=NormalFloat:" .. normal)
   vim.cmd("setlocal winblend=0")
-  vim.cmd([[setlocal fcs=eob:\ ]])
+  vim.cmd([[setlocal fcs=eob:\ ,fold:\ ,vert:\]])
   -- vim.api.nvim_win_set_option(win, "winhighlight", "NormalFloat:" .. normal)
   -- vim.api.nvim_win_set_option(win, "fcs", "eob: ")
   vim.api.nvim_set_current_win(cwin)

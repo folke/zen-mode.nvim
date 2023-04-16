@@ -43,6 +43,13 @@ local defaults = {
       enabled = false,
       font = "+4", -- font size increment
     },
+    -- this will change the font size on alacritty when in zen mode
+    -- requires  Alacritty Version 0.10.0 or higher
+    -- uses `alacritty msg` subcommand to change font size
+    alacritty = {
+      enabled = false,
+      font = "14", -- font size
+    },
     -- this will change the font size on wezterm when in zen mode
     -- to make this work, you need to set the following function in your wezterm
     -- config:
@@ -84,11 +91,16 @@ local defaults = {
 ---@type ZenOptions
 M.options = {}
 
-function M.colors()
+function M.colors(options)
+  options = options or M.options
   local normal = util.get_hl("Normal")
-  if normal and normal.background then
-    local bg = util.darken(normal.background, M.options.window.backdrop)
-    vim.cmd(("highlight ZenBg guibg=%s guifg=%s"):format(bg, bg))
+  if normal then
+    if normal.background then
+      local bg = util.darken(normal.background, options.window.backdrop)
+      vim.cmd(("highlight ZenBg guibg=%s guifg=%s"):format(bg, bg))
+    else
+      vim.cmd("highlight link ZenBg Normal")
+    end
   end
 end
 
