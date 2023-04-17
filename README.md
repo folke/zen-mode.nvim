@@ -156,6 +156,7 @@ require("zen-mode").toggle({
 
 In order to make the integration with wezterm work as intended, you need to add
 the following function to your wezterm config:
+
 ```lua
 wezterm.on('user-var-changed', function(window, pane, name, value)
     local overrides = window:get_config_overrides() or {}
@@ -180,6 +181,7 @@ wezterm.on('user-var-changed', function(window, pane, name, value)
     window:set_config_overrides(overrides)
 end)
 ```
+
 See also: https://github.com/wez/wezterm/discussions/2550
 
 ## Inspiration
