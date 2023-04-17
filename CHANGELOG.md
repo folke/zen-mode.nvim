@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/folke/zen-mode.nvim/compare/v1.1.1...v1.2.0) (2023-04-17)
+
+
+### Features
+
+* **plugins:** wezterm integration ([#61](https://github.com/folke/zen-mode.nvim/issues/61)) ([6b9c522](https://github.com/folke/zen-mode.nvim/commit/6b9c522b5f74706a46309b83d561ae5cac0f67f5))
+
 ## [1.1.1](https://github.com/folke/zen-mode.nvim/compare/v1.1.0...v1.1.1) (2023-03-19)
 
 
