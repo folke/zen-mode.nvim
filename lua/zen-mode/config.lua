@@ -50,6 +50,13 @@ local defaults = {
       enabled = false,
       font = "14", -- font size
     },
+    -- this will change the font size on wezterm when in zen mode
+    -- See alse also the Plugins/Wezterm section in this projects README
+    wezterm = {
+      enabled = false,
+      -- can be either an absolute font size or the number of incremental steps
+      font = "+4", -- (10% increase per step)
+    },
   },
   -- callback where you can add custom code when the zen window opens
   on_open = function(_win) end,
