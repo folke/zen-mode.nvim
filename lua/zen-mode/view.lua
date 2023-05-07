@@ -153,6 +153,7 @@ function M.create(opts)
   M.parent = vim.api.nvim_get_current_win()
 
   M.bg_buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_option(M.bg_buf, "filetype", "zenmode-bg")
   local ok
   ok, M.bg_win = pcall(vim.api.nvim_open_win, M.bg_buf, false, {
     relative = "editor",
