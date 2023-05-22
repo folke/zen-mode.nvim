@@ -36,35 +36,18 @@ Distraction-free coding for Neovim >= 0.5
 
 Install the plugin with your preferred package manager:
 
-### [packer](https://github.com/wbthomason/packer.nvim)
+### [lazy.nvim](https://github.com/folke/lazy.nvim)
 
 ```lua
 -- Lua
-use {
+{
   "folke/zen-mode.nvim",
-  config = function()
-    require("zen-mode").setup {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-    }
-  end
-}
-```
-
-### [vim-plug](https://github.com/junegunn/vim-plug)
-
-```vim
-" Vim Script
-Plug 'folke/zen-mode.nvim'
-
-lua << EOF
-  require("zen-mode").setup {
+  opts = {
     -- your configuration comes here
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
   }
-EOF
+}
 ```
 
 ## ⚙️ Configuration
