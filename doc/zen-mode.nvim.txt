@@ -1,4 +1,4 @@
-*zen-mode.nvim.txt*       For Neovim >= 0.8.0       Last change: 2023 April 17
+*zen-mode.nvim.txt*        For Neovim >= 0.8.0        Last change: 2023 May 22
 
 ==============================================================================
 Table of Contents                            *zen-mode.nvim-table-of-contents*
@@ -19,7 +19,6 @@ Distraction-free coding for Neovim >= 0.5
 
 
 FEATURES                                     *zen-mode.nvim-zen-mode-features*
-
 
 - opens the current buffer in a new full-screen floating window
 - doesn’t mess with existing window layouts / splits
@@ -43,7 +42,6 @@ FEATURES                                     *zen-mode.nvim-zen-mode-features*
 
 REQUIREMENTS                             *zen-mode.nvim-zen-mode-requirements*
 
-
 - Neovim >= 0.5.0
     - **Zen Mode** uses the new `z-index` option for floating windows
     - only builds **newer than May 15, 2021** are supported
@@ -55,36 +53,18 @@ INSTALLATION                             *zen-mode.nvim-zen-mode-installation*
 Install the plugin with your preferred package manager:
 
 
-PACKER ~
+LAZY.NVIM ~
 
 >lua
     -- Lua
-    use {
+    {
       "folke/zen-mode.nvim",
-      config = function()
-        require("zen-mode").setup {
-          -- your configuration comes here
-          -- or leave it empty to use the default settings
-          -- refer to the configuration section below
-        }
-      end
-    }
-<
-
-
-VIM-PLUG ~
-
->vim
-    " Vim Script
-    Plug 'folke/zen-mode.nvim'
-    
-    lua << EOF
-      require("zen-mode").setup {
+      opts = {
         -- your configuration comes here
         -- or leave it empty to use the default settings
         -- refer to the configuration section below
       }
-    EOF
+    }
 <
 
 
@@ -211,7 +191,6 @@ See also: https://github.com/wez/wezterm/discussions/2550
 
 
 INSPIRATION                               *zen-mode.nvim-zen-mode-inspiration*
-
 
 - Visual Studio Code Zen Mode <https://code.visualstudio.com/docs/getstarted/userinterface#_zen-mode>
 - Emacs writeroom-mode <https://github.com/joostkremers/writeroom-mode>
