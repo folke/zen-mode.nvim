@@ -20,6 +20,7 @@ Distraction-free coding for Neovim >= 0.5
   - hide [tmux](https://github.com/tmux/tmux) status line
   - increase [Kitty](https://sw.kovidgoyal.net/kitty/) font-size
   - increase [Alacritty](https://alacritty.org/) font-size
+  - increase [wezterm](https://wezfurlong.org/wezterm/) font-size
 - **Zen Mode** is automatically closed when a new non-floating window is opened
 - works well with plugins like [Telescope](https://github.com/nvim-telescope/telescope.nvim) to open a new buffer inside the Zen window
 - close the Zen window with `:ZenMode`, `:close` or `:quit`
@@ -35,35 +36,18 @@ Distraction-free coding for Neovim >= 0.5
 
 Install the plugin with your preferred package manager:
 
-### [packer](https://github.com/wbthomason/packer.nvim)
+### [lazy.nvim](https://github.com/folke/lazy.nvim)
 
 ```lua
 -- Lua
-use {
+{
   "folke/zen-mode.nvim",
-  config = function()
-    require("zen-mode").setup {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-    }
-  end
-}
-```
-
-### [vim-plug](https://github.com/junegunn/vim-plug)
-
-```vim
-" Vim Script
-Plug 'folke/zen-mode.nvim'
-
-lua << EOF
-  require("zen-mode").setup {
+  opts = {
     -- your configuration comes here
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
   }
-EOF
+}
 ```
 
 ## ⚙️ Configuration
@@ -118,6 +102,13 @@ EOF
       enabled = false,
       font = "14", -- font size
     },
+    -- this will change the font size on wezterm when in zen mode
+    -- See alse also the Plugins/Wezterm section in this projects README
+    wezterm = {
+      enabled = false,
+      -- can be either an absolute font size or the number of incremental steps
+      font = "+4", -- (10% increase per step)
+    },
   },
   -- callback where you can add custom code when the Zen window opens
   on_open = function(win)
@@ -141,6 +132,40 @@ require("zen-mode").toggle({
   }
 })
 ```
+
+## 🧩 Plugins
+
+### Wezterm
+
+In order to make the integration with wezterm work as intended, you need to add
+the following function to your wezterm config:
+
+```lua
+wezterm.on('user-var-changed', function(window, pane, name, value)
+    local overrides = window:get_config_overrides() or {}
+    if name == "ZEN_MODE" then
+        local incremental = value:find("+")
+        local number_value = tonumber(value)
+        if incremental ~= nil then
+            while (number_value > 0) do
+                window:perform_action(wezterm.action.IncreaseFontSize, pane)
+                number_value = number_value - 1
+            end
+            overrides.enable_tab_bar = false
+        elseif number_value < 0 then
+            window:perform_action(wezterm.action.ResetFontSize, pane)
+            overrides.font_size = nil
+            overrides.enable_tab_bar = true
+        else
+            overrides.font_size = number_value
+            overrides.enable_tab_bar = false
+        end
+    end
+    window:set_config_overrides(overrides)
+end)
+```
+
+See also: https://github.com/wez/wezterm/discussions/2550
 
 ## Inspiration
 

@@ -51,6 +51,13 @@ local defaults = {
       enabled = false,
       font = "14", -- font size
     },
+    -- this will change the font size on wezterm when in zen mode
+    -- See alse also the Plugins/Wezterm section in this projects README
+    wezterm = {
+      enabled = false,
+      -- can be either an absolute font size or the number of incremental steps
+      font = "+4", -- (10% increase per step)
+    },
   },
   -- callback where you can add custom code when the zen window opens
   on_open = function(_win) end,
@@ -64,9 +71,13 @@ M.options = {}
 function M.colors(options)
   options = options or M.options
   local normal = util.get_hl("Normal")
-  if normal and normal.background then
-    local bg = util.darken(normal.background, options.window.backdrop)
-    vim.cmd(("highlight ZenBg guibg=%s guifg=%s"):format(bg, bg))
+  if normal then
+    if normal.background then
+      local bg = util.darken(normal.background, options.window.backdrop)
+      vim.cmd(("highlight ZenBg guibg=%s guifg=%s"):format(bg, bg))
+    else
+      vim.cmd("highlight link ZenBg Normal")
+    end
   end
 end
 

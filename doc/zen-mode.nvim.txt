@@ -1,28 +1,24 @@
-*zen-mode.nvim.txt*      For Neovim >= 0.8.0      Last change: 2023 January 24
+*zen-mode.nvim.txt*        For Neovim >= 0.8.0        Last change: 2023 May 22
 
 ==============================================================================
 Table of Contents                            *zen-mode.nvim-table-of-contents*
 
 1. Zen Mode                                           |zen-mode.nvim-zen-mode|
-  - Features                                          |zen-mode.nvim-features|
-  - Requirements                                  |zen-mode.nvim-requirements|
-  - Installation                                  |zen-mode.nvim-installation|
-  - Configuration                                |zen-mode.nvim-configuration|
-  - Usage                                                |zen-mode.nvim-usage|
-  - Inspiration                                    |zen-mode.nvim-inspiration|
+  - Features                                 |zen-mode.nvim-zen-mode-features|
+  - Requirements                         |zen-mode.nvim-zen-mode-requirements|
+  - Installation                         |zen-mode.nvim-zen-mode-installation|
+  - Configuration                       |zen-mode.nvim-zen-mode-configuration|
+  - Usage                                       |zen-mode.nvim-zen-mode-usage|
+  - Plugins                                   |zen-mode.nvim-zen-mode-plugins|
+  - Inspiration                           |zen-mode.nvim-zen-mode-inspiration|
 
 ==============================================================================
 1. Zen Mode                                           *zen-mode.nvim-zen-mode*
 
 Distraction-free coding for Neovim >= 0.5
 
-<div class="figure">
-<img src="https://user-images.githubusercontent.com/292349/118454007-b7d8c900-b6ac-11eb-8263-015a8d929644.png" title="fig:"/>
-<p class="caption">image</p>
-</div>
 
-FEATURES                                              *zen-mode.nvim-features*
-
+FEATURES                                     *zen-mode.nvim-zen-mode-features*
 
 - opens the current buffer in a new full-screen floating window
 - doesn’t mess with existing window layouts / splits
@@ -38,13 +34,13 @@ FEATURES                                              *zen-mode.nvim-features*
     - hide tmux <https://github.com/tmux/tmux> status line
     - increase Kitty <https://sw.kovidgoyal.net/kitty/> font-size
     - increase Alacritty <https://alacritty.org/> font-size
+    - increase wezterm <https://wezfurlong.org/wezterm/> font-size
 - **Zen Mode** is automatically closed when a new non-floating window is opened
 - works well with plugins like Telescope <https://github.com/nvim-telescope/telescope.nvim> to open a new buffer inside the Zen window
 - close the Zen window with `:ZenMode`, `:close` or `:quit`
 
 
-REQUIREMENTS                                      *zen-mode.nvim-requirements*
-
+REQUIREMENTS                             *zen-mode.nvim-zen-mode-requirements*
 
 - Neovim >= 0.5.0
     - **Zen Mode** uses the new `z-index` option for floating windows
@@ -52,44 +48,27 @@ REQUIREMENTS                                      *zen-mode.nvim-requirements*
 - Twilight <https://github.com/folke/twilight.nvim> is optional to dim inactive portions of your code
 
 
-INSTALLATION                                      *zen-mode.nvim-installation*
+INSTALLATION                             *zen-mode.nvim-zen-mode-installation*
 
 Install the plugin with your preferred package manager:
 
-PACKER <HTTPS://GITHUB.COM/WBTHOMASON/PACKER.NVIM> ~
+
+LAZY.NVIM ~
 
 >lua
     -- Lua
-    use {
+    {
       "folke/zen-mode.nvim",
-      config = function()
-        require("zen-mode").setup {
-          -- your configuration comes here
-          -- or leave it empty to use the default settings
-          -- refer to the configuration section below
-        }
-      end
-    }
-<
-
-
-VIM-PLUG <HTTPS://GITHUB.COM/JUNEGUNN/VIM-PLUG> ~
-
->vim
-    " Vim Script
-    Plug 'folke/zen-mode.nvim'
-    
-    lua << EOF
-      require("zen-mode").setup {
+      opts = {
         -- your configuration comes here
         -- or leave it empty to use the default settings
         -- refer to the configuration section below
       }
-    EOF
+    }
 <
 
 
-CONFIGURATION                                    *zen-mode.nvim-configuration*
+CONFIGURATION                           *zen-mode.nvim-zen-mode-configuration*
 
 **Zen Mode** comes with the following defaults:
 
@@ -141,6 +120,13 @@ CONFIGURATION                                    *zen-mode.nvim-configuration*
           enabled = false,
           font = "14", -- font size
         },
+        -- this will change the font size on wezterm when in zen mode
+        -- See alse also the Plugins/Wezterm section in this projects README
+        wezterm = {
+          enabled = false,
+          -- can be either an absolute font size or the number of incremental steps
+          font = "+4", -- (10% increase per step)
+        },
       },
       -- callback where you can add custom code when the Zen window opens
       on_open = function(win)
@@ -152,7 +138,7 @@ CONFIGURATION                                    *zen-mode.nvim-configuration*
 <
 
 
-USAGE                                                    *zen-mode.nvim-usage*
+USAGE                                           *zen-mode.nvim-zen-mode-usage*
 
 Toggle **Zen Mode** with `:ZenMode`.
 
@@ -168,12 +154,51 @@ additional options:
 <
 
 
-INSPIRATION                                        *zen-mode.nvim-inspiration*
+PLUGINS                                       *zen-mode.nvim-zen-mode-plugins*
 
+
+WEZTERM ~
+
+In order to make the integration with wezterm work as intended, you need to add
+the following function to your wezterm config:
+
+>lua
+    wezterm.on('user-var-changed', function(window, pane, name, value)
+        local overrides = window:get_config_overrides() or {}
+        if name == "ZEN_MODE" then
+            local incremental = value:find("+")
+            local number_value = tonumber(value)
+            if incremental ~= nil then
+                while (number_value > 0) do
+                    window:perform_action(wezterm.action.IncreaseFontSize, pane)
+                    number_value = number_value - 1
+                end
+                overrides.enable_tab_bar = false
+            elseif number_value < 0 then
+                window:perform_action(wezterm.action.ResetFontSize, pane)
+                overrides.font_size = nil
+                overrides.enable_tab_bar = true
+            else
+                overrides.font_size = number_value
+                overrides.enable_tab_bar = false
+            end
+        end
+        window:set_config_overrides(overrides)
+    end)
+<
+
+See also: https://github.com/wez/wezterm/discussions/2550
+
+
+INSPIRATION                               *zen-mode.nvim-zen-mode-inspiration*
 
 - Visual Studio Code Zen Mode <https://code.visualstudio.com/docs/getstarted/userinterface#_zen-mode>
 - Emacs writeroom-mode <https://github.com/joostkremers/writeroom-mode>
 
+==============================================================================
+2. Links                                                 *zen-mode.nvim-links*
+
+1. *image*: https://user-images.githubusercontent.com/292349/118454007-b7d8c900-b6ac-11eb-8263-015a8d929644.png
 
 Generated by panvimdoc <https://github.com/kdheepak/panvimdoc>
 
