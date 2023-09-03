@@ -232,6 +232,11 @@ end
 function M.on_buf_win_enter()
   if vim.api.nvim_get_current_win() == M.win then
     M.fix_hl(M.win)
+
+    -- ensure zen mode options are set when switching buffers
+    for k, v in pairs(M.opts.window.options or {}) do
+      vim.api.nvim_win_set_option(M.win, k, v)
+    end
   end
 end
 
