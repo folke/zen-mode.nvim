@@ -168,6 +168,13 @@ wezterm.on('user-var-changed', function(window, pane, name, value)
 end)
 ```
 
+If you need this functionality within tmux, you need to add the following option
+to your tmux config:
+
+```zsh
+set-option -g allow-passthrough on
+```
+
 See also: https://github.com/wez/wezterm/discussions/2550
 
 ## Inspiration
