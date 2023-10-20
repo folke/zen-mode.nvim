@@ -1,4 +1,4 @@
-*zen-mode.nvim.txt*      For Neovim >= 0.8.0      Last change: 2023 October 05
+*zen-mode.nvim.txt*      For Neovim >= 0.8.0      Last change: 2023 October 20
 
 ==============================================================================
 Table of Contents                            *zen-mode.nvim-table-of-contents*
@@ -188,6 +188,13 @@ the following function to your wezterm config:
         end
         window:set_config_overrides(overrides)
     end)
+<
+
+If you need this functionality within tmux, you need to add the following
+option to your tmux config:
+
+>zsh
+    set-option -g allow-passthrough on
 <
 
 See also: https://github.com/wez/wezterm/discussions/2550
