@@ -219,11 +219,16 @@ function M.fix_hl(win, normal)
     vim.api.nvim_set_current_win(win)
   end
   normal = normal or "Normal"
-  vim.cmd("setlocal winhl=NormalFloat:" .. normal)
-  vim.cmd("setlocal winblend=0")
-  vim.cmd([[setlocal fcs=eob:\ ,fold:\ ,vert:\]])
-  -- vim.api.nvim_win_set_option(win, "winhighlight", "NormalFloat:" .. normal)
-  -- vim.api.nvim_win_set_option(win, "fcs", "eob: ")
+
+  local_options = {
+    winblend = 0,
+    fillchars = [[eob: ,fold: ,vert: ]],
+    winhighlight = "NormalFloat:" .. normal,
+  }
+  for name, value in pairs(local_options) do
+    vim.api.nvim_set_option_value(name, value, { scope = "local", win = cwin })
+  end
+
   vim.api.nvim_set_current_win(cwin)
 end
 
