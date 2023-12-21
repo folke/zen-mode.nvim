@@ -186,7 +186,7 @@ function M.create(opts)
   M.fix_hl(M.win, false)
 
   for k, v in pairs(opts.window.options or {}) do
-    vim.api.nvim_win_set_option(M.win, k, v)
+    vim.api.nvim_set_option_value(k, v, { scope = "local", win = M.win })
   end
 
   if type(opts.on_open) == "function" then
