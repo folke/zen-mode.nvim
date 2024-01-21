@@ -1,4 +1,4 @@
-*zen-mode.nvim.txt*      For Neovim >= 0.8.0      Last change: 2023 October 20
+*zen-mode.nvim.txt*      For Neovim >= 0.8.0      Last change: 2024 January 21
 
 ==============================================================================
 Table of Contents                            *zen-mode.nvim-table-of-contents*
