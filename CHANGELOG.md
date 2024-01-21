@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.1](https://github.com/folke/zen-mode.nvim/compare/v1.3.0...v1.3.1) (2024-01-21)
+
+
+### Bug Fixes
+
+* add default to ZenBg to allow customization ([#108](https://github.com/folke/zen-mode.nvim/issues/108)) ([c1dea35](https://github.com/folke/zen-mode.nvim/commit/c1dea35af945b08ad50a2e70cc734a9a14640078))
+* tmux+wezterm plugin ([#103](https://github.com/folke/zen-mode.nvim/issues/103)) ([3506220](https://github.com/folke/zen-mode.nvim/commit/35062207ae1db4265e734e2a838689c9f5cf0fb0))
+
 ## [1.3.0](https://github.com/folke/zen-mode.nvim/compare/v1.2.0...v1.3.0) (2023-10-05)
 
 
