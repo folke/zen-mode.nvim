@@ -131,4 +131,15 @@ function M.diagnostics(state, disable)
   end
 end
 
+function M.todo(state, disable)
+  if disable then
+    state.todo = require("todo-comments.highlight").enabled
+    require("todo-comments").disable()
+  else
+    if state.todo then
+      require("todo-comments").enable()
+    end
+  end
+end
+
 return M
