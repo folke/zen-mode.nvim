@@ -73,9 +73,9 @@ function M.colors(options)
   if normal then
     if normal.background then
       local bg = util.darken(normal.background, options.window.backdrop)
-      vim.cmd(("highlight ZenBg guibg=%s guifg=%s"):format(bg, bg))
+      vim.cmd(("highlight default ZenBg guibg=%s guifg=%s"):format(bg, bg))
     else
-      vim.cmd("highlight link ZenBg Normal")
+      vim.cmd("highlight default link ZenBg Normal")
     end
   end
 end
