@@ -173,7 +173,7 @@ function M.create(opts)
     M.bg_win = nil
     return
   end
-  M.fix_hl(M.bg_win, "ZenBg")
+  M.fix_hl(M.bg_win, true)
 
   local win_opts = vim.tbl_extend("keep", {
     relative = "editor",
@@ -183,10 +183,10 @@ function M.create(opts)
   local buf = vim.api.nvim_get_current_buf()
   M.win = vim.api.nvim_open_win(buf, true, win_opts)
   vim.cmd([[norm! zz]])
-  M.fix_hl(M.win)
+  M.fix_hl(M.win, false)
 
   for k, v in pairs(opts.window.options or {}) do
-    vim.api.nvim_win_set_option(M.win, k, v)
+    vim.api.nvim_set_option_value(k, v, { scope = "local", win = M.win })
   end
 
   if type(opts.on_open) == "function" then
@@ -213,17 +213,25 @@ function M.create(opts)
   vim.api.nvim_exec(augroup:format(M.win, M.win), false)
 end
 
-function M.fix_hl(win, normal)
+function M.fix_hl(win, is_bg)
   local cwin = vim.api.nvim_get_current_win()
-  if cwin ~= win then
-    vim.api.nvim_set_current_win(win)
+  vim.api.nvim_set_current_win(win)
+
+  local_options = {
+    winblend = 0,
+  }
+
+  if is_bg then
+    local_options["winhighlight"] = "NormalFloat:ZenBg"
+  else
+    local_options["winhighlight"] = "NormalFloat:Normal"
+    local_options["fillchars"] = [[eob: ,fold: ,vert: ]]
   end
-  normal = normal or "Normal"
-  vim.cmd("setlocal winhl=NormalFloat:" .. normal)
-  vim.cmd("setlocal winblend=0")
-  vim.cmd([[setlocal fcs=eob:\ ,fold:\ ,vert:\]])
-  -- vim.api.nvim_win_set_option(win, "winhighlight", "NormalFloat:" .. normal)
-  -- vim.api.nvim_win_set_option(win, "fcs", "eob: ")
+
+  for name, value in pairs(local_options) do
+    vim.api.nvim_set_option_value(name, value, { scope = "local", win = win })
+  end
+
   vim.api.nvim_set_current_win(cwin)
 end
 
