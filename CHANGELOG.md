@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/folke/zen-mode.nvim/compare/v1.2.0...v1.3.0) (2023-10-05)
+
+
+### Features
+
+* **statusline:** turn on/off statusline in zen mode ([#101](https://github.com/folke/zen-mode.nvim/issues/101)) ([6c5777c](https://github.com/folke/zen-mode.nvim/commit/6c5777cf9964c0db1dfde96c9a68b066722b84f0))
+
 ## [1.2.0](https://github.com/folke/zen-mode.nvim/compare/v1.1.1...v1.2.0) (2023-04-17)
 
 
