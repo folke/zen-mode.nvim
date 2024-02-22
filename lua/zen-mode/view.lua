@@ -94,7 +94,8 @@ function M.round(num)
 end
 
 function M.height()
-  return vim.o.lines - vim.o.cmdheight
+  local height = vim.o.lines - vim.o.cmdheight
+  return (vim.o.laststatus == 3) and height - 1 or height
 end
 
 function M.resolve(max, value)
@@ -151,6 +152,8 @@ function M.create(opts)
   M.opts = opts
   M.state = {}
   M.parent = vim.api.nvim_get_current_win()
+  -- should apply before calculate window's height to be able handle 'laststatus' option  
+  M.plugins_on_open()
 
   M.bg_buf = vim.api.nvim_create_buf(false, true)
   local ok
@@ -165,6 +168,7 @@ function M.create(opts)
     zindex = opts.zindex - 10,
   })
   if not ok then
+    M.plugins_on_close()
     util.error("could not open floating window. You need a Neovim build that supports zindex (May 15 2021 or newer)")
     M.bg_win = nil
     return
@@ -186,7 +190,6 @@ function M.create(opts)
     vim.api.nvim_win_set_option(M.win, k, v)
   end
 
-  M.plugins_on_open()
   if type(opts.on_open) == "function" then
     opts.on_open(M.win)
   end
