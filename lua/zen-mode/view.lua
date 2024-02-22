@@ -178,6 +178,7 @@ function M.create(opts)
   local win_opts = vim.tbl_extend("keep", {
     relative = "editor",
     zindex = opts.zindex,
+    border = opts.border,
   }, M.layout(opts))
 
   local buf = vim.api.nvim_get_current_buf()
@@ -219,7 +220,7 @@ function M.fix_hl(win, normal)
     vim.api.nvim_set_current_win(win)
   end
   normal = normal or "Normal"
-  vim.cmd("setlocal winhl=NormalFloat:" .. normal)
+  vim.cmd("setlocal winhl=NormalFloat:" .. normal .. ",FloatBorder:ZenBorder")
   vim.cmd("setlocal winblend=0")
   vim.cmd([[setlocal fcs=eob:\ ,fold:\ ,vert:\]])
   -- vim.api.nvim_win_set_option(win, "winhighlight", "NormalFloat:" .. normal)

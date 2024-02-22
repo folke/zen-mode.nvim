@@ -3,6 +3,7 @@ local M = {}
 
 ---@class ZenOptions
 local defaults = {
+  border = "none",
   zindex = 40, -- zindex of the zen window. Should be less than 50, which is the float default
   window = {
     backdrop = 0.95, -- shade the backdrop of the zen window. Set to 1 to keep the same as Normal
