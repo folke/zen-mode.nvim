@@ -21,6 +21,7 @@ Distraction-free coding for Neovim >= 0.5
   - increase [Kitty](https://sw.kovidgoyal.net/kitty/) font-size
   - increase [Alacritty](https://alacritty.org/) font-size
   - increase [wezterm](https://wezfurlong.org/wezterm/) font-size
+  - increase [Neovide](https://neovide.dev/) scale factor and disable animations
 - **Zen Mode** is automatically closed when a new non-floating window is opened
 - works well with plugins like [Telescope](https://github.com/nvim-telescope/telescope.nvim) to open a new buffer inside the Zen window
 - close the Zen window with `:ZenMode`, `:close` or `:quit`
@@ -113,6 +114,22 @@ Install the plugin with your preferred package manager:
       -- can be either an absolute font size or the number of incremental steps
       font = "+4", -- (10% increase per step)
     },
+    -- this will change the scale factor in Neovide when in zen mode
+    -- See alse also the Plugins/Wezterm section in this projects README
+    neovide = {
+        enabled = false,
+        -- Will multiply the current scale factor by this number
+        scale = 1.2
+        -- disable the Neovide animations while in Zen mode
+        disable_animations = {
+                neovide_animation_length = 0,
+                neovide_cursor_animate_command_line = false,
+                neovide_scroll_animation_length = 0,
+                neovide_position_animation_length = 0,
+                neovide_cursor_animation_length = 0,
+                neovide_cursor_vfx_mode = "",
+            }
+    },
   },
   -- callback where you can add custom code when the Zen window opens
   on_open = function(win)
@@ -177,6 +194,10 @@ set-option -g allow-passthrough on
 ```
 
 See also: https://github.com/wez/wezterm/discussions/2550
+
+### Neovide
+
+Neovide config will only be executed if vim variable `g:neovide` is set to 1, which Neovide does automatically on startup. By modifying table `plugins.neovide.disable_animations`, you can control which variables in `g:` namespace get temporarily overriden while in Zen mode. By default, all animations are disabled. See [Neovide documentation](https://neovide.dev/configuration.html) for possible values.
 
 ## Inspiration
 
