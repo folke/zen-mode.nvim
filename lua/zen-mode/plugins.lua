@@ -132,9 +132,20 @@ function M.neovide(state, disable, opts)
       state.scale = vim.g.neovide_scale_factor
       vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * opts.scale
     end
+    if opts.disable_animations then
+      for key, value in pairs(opts.disable_animations) do
+        state[key] = vim.g[key]
+        vim.g[key] = value
+      end
+    end
   else
     if opts.scale ~= 1 then
       vim.g.neovide_scale_factor = state.scale
+    end
+    if opts.disable_animations then
+      for key, _ in pairs(opts.disable_animations) do
+        vim.g[key] = state[key]
+      end
     end
   end
 end
