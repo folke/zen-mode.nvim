@@ -123,6 +123,22 @@ function M.tmux(state, disable, opts)
   end
 end
 
+function M.neovide(state, disable, opts)
+  if not vim.g.neovide then
+    return
+  end
+  if disable then
+    if opts.scale ~= 1 then
+      state.scale = vim.g.neovide_scale_factor
+      vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * opts.scale
+    end
+  else
+    if opts.scale ~= 1 then
+      vim.g.neovide_scale_factor = state.scale
+    end
+  end
+end
+
 function M.diagnostics(state, disable)
   if disable then
     vim.diagnostic.disable(0)
