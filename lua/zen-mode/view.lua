@@ -35,7 +35,7 @@ function M.plugins_on_close()
   end
 end
 
-function M.close()
+function M.close(opts)
   pcall(vim.cmd, [[autocmd! Zen]])
   pcall(vim.cmd, [[augroup! Zen]])
 
@@ -54,14 +54,18 @@ function M.close()
     vim.api.nvim_win_close(M.win, { force = true })
     M.win = nil
   end
-  if M.bg_win and vim.api.nvim_win_is_valid(M.bg_win) then
-    vim.api.nvim_win_close(M.bg_win, { force = true })
-    M.bg_win = nil
+
+  if opts == nil then
+    if M.bg_win and vim.api.nvim_win_is_valid(M.bg_win) then
+      vim.api.nvim_win_close(M.bg_win, { force = true })
+      M.bg_win = nil
+    end
+    if M.bg_buf and vim.api.nvim_buf_is_valid(M.bg_buf) then
+      vim.api.nvim_buf_delete(M.bg_buf, { force = true })
+      M.bg_buf = nil
+    end
   end
-  if M.bg_buf and vim.api.nvim_buf_is_valid(M.bg_buf) then
-    vim.api.nvim_buf_delete(M.bg_buf, { force = true })
-    M.bg_buf = nil
-  end
+
   if M.opts then
     M.plugins_on_close()
     M.opts.on_close()
@@ -76,7 +80,7 @@ function M.open(opts)
   if not M.is_open() then
     -- close any possible remnants from a previous session
     -- shouldn't happen, but just in case
-    M.close()
+    M.close(opts)
     M.create(opts)
   end
 end
@@ -152,27 +156,32 @@ function M.create(opts)
   M.opts = opts
   M.state = {}
   M.parent = vim.api.nvim_get_current_win()
-  -- should apply before calculate window's height to be able handle 'laststatus' option  
+  -- should apply before calculate window's height to be able handle 'laststatus' option
   M.plugins_on_open()
 
-  M.bg_buf = vim.api.nvim_create_buf(false, true)
-  local ok
-  ok, M.bg_win = pcall(vim.api.nvim_open_win, M.bg_buf, false, {
-    relative = "editor",
-    width = vim.o.columns,
-    height = M.height(),
-    focusable = false,
-    row = 0,
-    col = 0,
-    style = "minimal",
-    zindex = opts.zindex - 10,
-  })
+
+  local ok = true
+  if M.bg_buf == nil then
+    M.bg_buf = vim.api.nvim_create_buf(false, true)
+    ok, M.bg_win = pcall(vim.api.nvim_open_win, M.bg_buf, false, {
+      relative = "editor",
+      width = vim.o.columns,
+      height = M.height(),
+      focusable = false,
+      row = 0,
+      col = 0,
+      style = "minimal",
+      zindex = opts.zindex - 10,
+    })
+  end
+
   if not ok then
     M.plugins_on_close()
     util.error("could not open floating window. You need a Neovim build that supports zindex (May 15 2021 or newer)")
     M.bg_win = nil
     return
   end
+
   M.fix_hl(M.bg_win, "ZenBg")
 
   local win_opts = vim.tbl_extend("keep", {
