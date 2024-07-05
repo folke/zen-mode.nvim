@@ -1,5 +1,5 @@
-local view = require("zen-mode.view")
 local config = require("zen-mode.config")
+local view = require("zen-mode.view")
 
 local M = {}
 

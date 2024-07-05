@@ -1,6 +1,6 @@
 local config = require("zen-mode.config")
-local util = require("zen-mode.util")
 local plugins = require("zen-mode.plugins")
+local util = require("zen-mode.util")
 local M = {}
 
 M.bg_win = nil
@@ -152,7 +152,7 @@ function M.create(opts)
   M.opts = opts
   M.state = {}
   M.parent = vim.api.nvim_get_current_win()
-  -- should apply before calculate window's height to be able handle 'laststatus' option  
+  -- should apply before calculate window's height to be able handle 'laststatus' option
   M.plugins_on_open()
 
   M.bg_buf = vim.api.nvim_create_buf(false, true)
