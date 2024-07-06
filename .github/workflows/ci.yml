@@ -12,4 +12,3 @@ jobs:
     with:
       plugin: zen-mode.nvim
       repo: folke/zen-mode.nvim
-      tests: false
