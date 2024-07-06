@@ -65,7 +65,7 @@ local defaults = {
 }
 
 ---@type ZenOptions
-M.options = {}
+M.options = nil
 
 function M.colors(options)
   options = options or M.options
@@ -94,6 +94,11 @@ function M.setup(options)
   end
 end
 
-M.setup()
-
-return M
+return setmetatable(M, {
+  __index = function(_, k)
+    if k == "options" then
+      M.setup()
+    end
+    return rawget(M, k)
+  end,
+})
