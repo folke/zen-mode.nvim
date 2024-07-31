@@ -251,6 +251,7 @@ function M.on_win_enter()
       end
     end, 10)
   end
+  M.fix_hl(win)
 end
 
 return M
