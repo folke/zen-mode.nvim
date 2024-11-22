@@ -45,4 +45,31 @@ function M.error(msg)
   M.log(msg, "ErrorMsg")
 end
 
+---Need some kind of heuristics to determine if the
+---target buffer is a real file or not. For now, is as follow:
+function M.is_real_file()
+  local bufnr = vim.api.nvim_get_current_buf()
+  -- check if buf is nil or is not number which is not correct bufnr
+  if not bufnr or type(bufnr) ~= "number" then
+    return false
+  end
+
+  if not vim.api.nvim_buf_is_valid(bufnr) then
+    return false
+  end
+
+  -- Assumed, any real file has a file name
+  local bufname = vim.api.nvim_buf_get_name(bufnr)
+  if bufname == "" then
+    return false
+  end
+
+  -- Also assumed, any file has some sort of file type
+  local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
+  -- and should be listed(visible to users, us)
+  local buflisted = vim.api.nvim_get_option_value("buflisted", { buf = bufnr })
+
+  return filetype ~= "" and buflisted == true
+end
+
 return M
