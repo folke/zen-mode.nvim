@@ -73,6 +73,10 @@ function M.close()
 end
 
 function M.open(opts)
+  if not util.is_real_file() then
+    return
+  end
+
   if not M.is_open() then
     -- close any possible remnants from a previous session
     -- shouldn't happen, but just in case
