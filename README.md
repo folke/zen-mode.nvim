@@ -22,6 +22,7 @@ Distraction-free coding for Neovim >= 0.5
   - increase [Alacritty](https://alacritty.org/) font-size
   - increase [wezterm](https://wezfurlong.org/wezterm/) font-size
   - increase [Neovide](https://neovide.dev/) scale factor and disable animations
+  - switch to a preconfigured profile in [Konsole](https://konsole.kde.org/)
 - **Zen Mode** is automatically closed when a new non-floating window is opened
 - works well with plugins like [Telescope](https://github.com/nvim-telescope/telescope.nvim) to open a new buffer inside the Zen window
 - close the Zen window with `:ZenMode`, `:close` or `:quit`
@@ -129,6 +130,17 @@ Install the plugin with your preferred package manager:
                 neovide_cursor_animation_length = 0,
                 neovide_cursor_vfx_mode = "",
             }
+    },
+    -- this will change the profile in Konsole when in Zen mode and/or make it fullscreen
+    konsole = {
+      enabled = true,
+      -- this will turn the window borderless fullscreen on enter and back to
+      -- normal on exit
+      fullscreen = true,
+      -- when set to true, this will switch to the profile called "Zen" when
+      -- entering Zen mode and back to the original profile on exit; can be set
+      -- to a string to use a specific profile instead
+      profile = false,
     },
   },
   -- callback where you can add custom code when the Zen window opens
