@@ -156,6 +156,29 @@ require("zen-mode").toggle({
 
 ## 🧩 Plugins
 
+### Undotree
+
+Allows to keep showing undotree if it was active at the moment of zen-mode activation.
+By default shows section on the right side consuming 20% of specified zen-mode's `window.width`,
+can be customised to show on the left side with a desired relative width. It is recommended to
+increase your current `window.width` to accommodate for a sidecar's width.
+
+Example:
+```lua
+require("zen-mode").toggle({
+  window = {
+    width = .85 -- width will be 85% of the editor width
+  },
+  plugins = {
+    undotree = {
+      enabled = true,
+      width_relative = .2,
+      position = "right" -- or "left"
+    }
+  }
+})
+```
+
 ### Wezterm
 
 In order to make the integration with wezterm work as intended, you need to add

@@ -33,6 +33,10 @@ function M.is_dark(hex)
   return lum <= 0.5
 end
 
+function M.round(num)
+  return math.floor(num + 0.5)
+end
+
 function M.log(msg, hl)
   vim.api.nvim_echo({ { "ZenMode: ", hl }, { msg } }, true, {})
 end

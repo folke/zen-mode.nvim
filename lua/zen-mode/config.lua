@@ -85,6 +85,12 @@ local defaults = {
 ---@type ZenOptions
 M.options = nil
 
+---@class ZenEvents
+local event_type = { OPEN = "0", READY = "1", CLOSE = "2", LAYOUT_UPDATE = "3" }
+
+---@type ZenEvents
+M.event_type = event_type
+
 function M.colors(options)
   options = options or M.options
   local normal = util.get_hl("Normal")
@@ -92,8 +98,10 @@ function M.colors(options)
     if normal.background then
       local bg = util.darken(normal.background, options.window.backdrop)
       vim.cmd(("highlight default ZenBg guibg=%s guifg=%s"):format(bg, bg))
+      vim.cmd(("highlight default ZenSidecarBg guibg=%s guifg=%s"):format(bg, bg))
     else
       vim.cmd("highlight default link ZenBg Normal")
+      vim.cmd("highlight default link ZenSidecarBg Normal")
     end
   end
 end
