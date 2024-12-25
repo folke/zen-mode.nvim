@@ -58,7 +58,7 @@ Install the plugin with your preferred package manager:
 ```lua
 {
   window = {
-    backdrop = 0.95, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
+    backdrop = 0.95, -- shade the backdrop of the zen window. Set to 1 for no dimming (preserve transparency)
     -- height and width can be:
     -- * an absolute number of cells when > 1
     -- * a percentage of the width / height of the editor when <= 1
