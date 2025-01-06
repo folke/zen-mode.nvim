@@ -221,12 +221,13 @@ function M.fix_hl(win, normal)
     vim.api.nvim_set_current_win(win)
   end
   normal = normal or "Normal"
-  vim.cmd("setlocal winhl=NormalFloat:" .. normal .. ",FloatBorder:ZenBorder,EndOfBuffer:" .. normal)
-  vim.cmd("setlocal winblend=0")
-  vim.api.nvim_set_option_value("fcs", M.opts.window.options.fillchars, { scope = "local" })
-  -- vim.cmd([[setlocal fcs=eob:\ ,fold:\ ,vert:\]])
-  -- vim.api.nvim_win_set_option(win, "winhighlight", "NormalFloat:" .. normal)
-  -- vim.api.nvim_win_set_option(win, "fcs", "eob: ")
+  local opts = { scope = "local" }
+  local winhl = "NormalFloat:" .. normal .. ",FloatBorder:ZenBorder,EndOfBuffer:" .. normal
+  local winblend = 0
+  local fillchars = M.opts.window.options.fillchars
+  vim.api.nvim_set_option_value("winhl", winhl, opts)
+  vim.api.nvim_set_option_value("winblend", winblend, opts)
+  vim.api.nvim_set_option_value("fillchars", fillchars, opts)
   vim.api.nvim_set_current_win(cwin)
 end
 
