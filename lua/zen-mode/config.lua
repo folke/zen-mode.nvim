@@ -15,7 +15,7 @@ local defaults = {
     -- by default, only fillchars are changed for the zen window
     -- uncomment any of the options below, or add other vim.wo options you want to apply
     options = {
-      fillchars = "eob: ,fold: ,vert:",
+      fillchars = "eob: ,fold: ,vert: ",
       -- signcolumn = "no", -- disable signcolumn
       -- number = false, -- disable number column
       -- relativenumber = false, -- disable relative numbers
