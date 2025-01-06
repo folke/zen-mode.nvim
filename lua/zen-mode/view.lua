@@ -224,7 +224,7 @@ function M.fix_hl(win, normal)
   local opts = { scope = "local" }
   local winhl = "NormalFloat:" .. normal .. ",FloatBorder:ZenBorder,EndOfBuffer:" .. normal
   local winblend = 0
-  local fillchars = M.opts.window.options.fillchars
+  local fillchars = M.opts.window.options.fillchars or "eob: ,fold: ,vert: "
   vim.api.nvim_set_option_value("winhl", winhl, opts)
   vim.api.nvim_set_option_value("winblend", winblend, opts)
   vim.api.nvim_set_option_value("fillchars", fillchars, opts)
