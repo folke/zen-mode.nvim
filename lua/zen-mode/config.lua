@@ -15,10 +15,8 @@ local defaults = {
     -- by default, only fillchars are changed for the zen window
     -- uncomment any of the options below, or add other vim.wo options you want to apply
     options = {
-      -- fillchars are changed even though the option is commented out
-      -- the first shows the defaults zen window uses, the second sets them to your current values
-      -- fillchars = "eob: ,fold: ,vert: ", -- disable end of buffer, fold, and vertical separators
-      -- fillchars = vim.o.fillchars, -- do not change fillchars
+      -- comment out to keep fillchars as they are
+      fillchars = "eob: ,fold: ,vert: ", -- disable end of buffer, fold, and vertical separators
       -- signcolumn = "no", -- disable signcolumn
       -- number = false, -- disable number column
       -- relativenumber = false, -- disable relative numbers
