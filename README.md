@@ -68,7 +68,7 @@ Install the plugin with your preferred package manager:
     -- by default, only fillchars are changed for the zen window
     -- uncomment any of the options below, or add other vim.wo options you want to apply
     options = {
-      -- comment out to keep fillchars as they are
+      -- set fillchars to an empty string or vim.o.fillchars to keep them as they are
       fillchars = "eob: ,fold: ,vert: ", -- disable end of buffer, fold, and vertical separators
       -- signcolumn = "no", -- disable signcolumn
       -- number = false, -- disable number column
