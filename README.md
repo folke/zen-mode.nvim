@@ -18,7 +18,7 @@ Distraction-free coding for Neovim >= 0.5
 - plugins:
   - disable gitsigns
   - hide [tmux](https://github.com/tmux/tmux) status line
-  - increase [Kitty](https://sw.kovidgoyal.net/kitty/) font-size
+  - increase [Kitty](https://sw.kovidgoyal.net/kitty/) font-size and sets layout
   - increase [Alacritty](https://alacritty.org/) font-size
   - increase [wezterm](https://wezfurlong.org/wezterm/) font-size
   - increase [Neovide](https://neovide.dev/) scale factor and disable animations
@@ -92,13 +92,15 @@ Install the plugin with your preferred package manager:
     gitsigns = { enabled = false }, -- disables git signs
     tmux = { enabled = false }, -- disables the tmux statusline
     todo = { enabled = false }, -- if set to "true", todo-comments.nvim highlights will be disabled
-    -- this will change the font size on kitty when in zen mode
+    -- this will change the font size and layout on kitty when in zen mode
+    -- the "stack" layout maximizes (fullscreen) the current kitty window and exiting zen mode restores the previous layout
     -- to make this work, you need to set the following kitty options:
     -- - allow_remote_control socket-only
     -- - listen_on unix:/tmp/kitty
     kitty = {
       enabled = false,
       font = "+4", -- font size increment
+      layout = "stack" -- sets layout in zen mode, "stack" maximizes the current window
     },
     -- this will change the font size on alacritty when in zen mode
     -- requires  Alacritty Version 0.10.0 or higher
