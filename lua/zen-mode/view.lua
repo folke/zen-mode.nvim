@@ -159,6 +159,7 @@ function M.create(opts)
   vim.api.nvim_buf_set_option(M.bg_buf, "filetype", "zenmode-bg")
   local ok
   ok, M.bg_win = pcall(vim.api.nvim_open_win, M.bg_buf, false, {
+    border = "",
     relative = "editor",
     width = vim.o.columns,
     height = M.height(),
