@@ -12,9 +12,11 @@ local defaults = {
     -- * a percentage of the width / height of the editor when <= 1
     width = 120, -- width of the zen window
     height = 1, -- height of the zen window
-    -- by default, no options are changed in for the zen window
+    -- by default, only fillchars are changed for the zen window
     -- uncomment any of the options below, or add other vim.wo options you want to apply
     options = {
+      -- set fillchars to an empty string or vim.o.fillchars to keep them as they are
+      fillchars = "eob: ,fold: ,vert: ", -- disable end of buffer, fold, and vertical separators
       -- signcolumn = "no", -- disable signcolumn
       -- number = false, -- disable number column
       -- relativenumber = false, -- disable relative numbers
