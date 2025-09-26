@@ -150,6 +150,60 @@ function M.neovide(state, disable, opts)
   end
 end
 
+-- Switches konsole to "Zen" profile
+function M.konsole(state, disable, opts)
+  local service = vim.env.KONSOLE_DBUS_SERVICE
+  if not service then
+    return
+  end
+
+  local session = vim.env.KONSOLE_DBUS_SESSION
+  if opts.profile and not session then
+    return
+  end
+
+  local exec
+  if opts.executable then
+    exec = opts.executable
+  else
+    for _, bin in ipairs({ "qdbus6", "qdbus", "qdbus5" }) do
+      if vim.fn.executable(bin) then
+        exec = bin
+        break
+      end
+    end
+  end
+  if not exec then
+    return
+  end
+
+  local fs = "%s %s /konsole/MainWindow_1 viewFullScreen %s"
+  local pf = "Zen"
+  local pf_read = "%s %s %s profile"
+  local pf_write = "%s %s %s setProfile %s"
+  if disable then
+    if opts.fullscreen then
+      vim.fn.system(string.format(fs, exec, service, "true"))
+    end
+    if opts.profile then
+      if opts.profile ~= true then
+        pf = opts.profile
+      end
+      state.pf = vim.fn.system(string.format(pf_read, exec, service, session))
+      vim.fn.system(string.format(pf_write, exec, service, session, pf))
+    end
+    return
+  else
+    if opts.fullscreen then
+      vim.fn.system(string.format(fs, exec, service, "false"))
+    end
+    if opts.profile then
+      vim.fn.system(string.format(pf_write, exec, service, session, state.pf))
+    end
+    return
+  end
+end
+
 function M.diagnostics(state, disable)
   if disable then
     vim.diagnostic.disable(0)

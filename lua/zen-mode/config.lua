@@ -75,6 +75,17 @@ local defaults = {
         neovide_cursor_vfx_mode = "",
       },
     },
+    -- this will change the profile in Konsole when in Zen mode and/or make it fullscreen
+    konsole = {
+      enabled = true,
+      -- this will turn the window borderless fullscreen on enter and back to
+      -- normal on exit
+      fullscreen = true,
+      -- when set to true, this will switch to the profile called "Zen" when
+      -- entering Zen mode and back to the original profile on exit; can be set
+      -- to a string to use a specific profile instead
+      profile = false,
+    },
   },
   -- callback where you can add custom code when the zen window opens
   on_open = function(_win) end,
