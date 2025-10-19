@@ -31,20 +31,43 @@ function M.options(state, disable, opts)
   end
 end
 
--- changes the kitty font size
--- it's a bit glitchy, but it works
 function M.kitty(state, disable, opts)
   if not vim.fn.executable("kitty") then
     return
   end
-  local cmd = "kitty @ --to %s set-font-size %s"
+
   local socket = vim.fn.expand("$KITTY_LISTEN_ON")
-  if disable then
-    vim.fn.system(cmd:format(socket, opts.font))
-  else
-    vim.fn.system(cmd:format(socket, "0"))
+  if socket == "" then
+    vim.notify(
+      "Zen-mode: KITTY_LISTEN_ON is not set. Kitty integration disabled.",
+      vim.log.levels.WARN
+    )
+    return
   end
-  vim.cmd([[redraw]])
+
+  local base_cmd = { "kitty", "@", "--to", socket }
+
+  if disable then
+    if opts.font then
+      local font_cmd = vim.list_extend(vim.deepcopy(base_cmd), { "set-font-size", opts.font })
+      vim.fn.system(font_cmd)
+    end
+    if opts.layout and type(opts.layout) == "string" then
+      local layout_cmd = vim.list_extend(vim.deepcopy(base_cmd), { "goto-layout", opts.layout })
+      vim.fn.system(layout_cmd)
+    end
+  else
+    if opts.font then
+      local font_cmd = vim.list_extend(vim.deepcopy(base_cmd), { "set-font-size", "0" })
+      vim.fn.system(font_cmd)
+    end
+    if opts.layout and type(opts.layout) == "string" then
+      local layout_cmd = vim.list_extend(vim.deepcopy(base_cmd), { "last-used-layout" })
+      vim.fn.system(layout_cmd)
+    end
+  end
+
+  vim.cmd([[redraw!]])
 end
 
 -- changes the alacritty font size

@@ -37,13 +37,15 @@ local defaults = {
     tmux = { enabled = false }, -- disables the tmux statusline
     diagnostics = { enabled = false }, -- disables diagnostics
     todo = { enabled = false }, -- if set to "true", todo-comments.nvim highlights will be disabled
-    -- this will change the font size on kitty when in zen mode
+    -- this will change the font size and layout on kitty when in zen mode
+    -- the "stack" layout maximizes (fullscreen) the current kitty window and exiting zen mode restores the previous layout
     -- to make this work, you need to set the following kitty options:
     -- - allow_remote_control socket-only
     -- - listen_on unix:/tmp/kitty
     kitty = {
       enabled = false,
       font = "+4", -- font size increment
+      layout = "stack" -- sets layout in zen mode, "stack" maximizes the current window
     },
     -- this will change the font size on alacritty when in zen mode
     -- requires  Alacritty Version 0.10.0 or higher
