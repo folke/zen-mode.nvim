@@ -65,18 +65,20 @@ end
 
 -- changes the wezterm font size
 function M.wezterm(state, disable, opts)
-  local stdout = vim.loop.new_tty(1, false)
   if disable then
     -- Requires tmux setting or no effect: set-option -g allow-passthrough on
-    stdout:write(
-      ("\x1bPtmux;\x1b\x1b]1337;SetUserVar=%s=%s\b\x1b\\"):format(
+    vim.cmd(
+      ([[call chansend(v:stderr, "\033Ptmux;\033\033]1337;SetUserVar=%s=%s\007\033\\")]]):format(
         "ZEN_MODE",
-        vim.fn.system({ "base64" }, tostring(opts.font))
+        vim.fn.system({ "base64", "-w", "0" }, tostring(opts.font))
       )
     )
   else
-    stdout:write(
-      ("\x1bPtmux;\x1b\x1b]1337;SetUserVar=%s=%s\b\x1b\\"):format("ZEN_MODE", vim.fn.system({ "base64" }, "-1"))
+    vim.cmd(
+      ([[call chansend(v:stderr, "\033Ptmux;\033\033]1337;SetUserVar=%s=%s\007\033\\")]]):format(
+        "ZEN_MODE",
+        vim.fn.system({ "base64", "-w", "0" }, "-1")
+      )
     )
   end
   vim.cmd([[redraw]])
