@@ -1,7 +1,9 @@
 local M = {}
 
 function M.get_hl(name)
-  local ok, hl = pcall(vim.api.nvim_get_hl_by_name, name, true)
+  local ok, hl = pcall(vim.api.nvim_get_hl, 0, {
+    name = name
+  })
   if not ok then
     return
   end
@@ -23,6 +25,9 @@ function M.rgb2hex(r, g, b)
 end
 
 function M.darken(hex, amount)
+  if amount == 1 then
+    return hex
+  end
   local r, g, b = M.hex2rgb(hex)
   return M.rgb2hex(r * amount, g * amount, b * amount)
 end

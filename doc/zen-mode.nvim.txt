@@ -77,8 +77,8 @@ CONFIGURATION                           *zen-mode.nvim-zen-mode-configuration*
 >lua
     {
       window = {
-        backdrop = 0.95, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
         -- height and width can be:
+        backdrop = 0.95, -- shade the backdrop of the zen window. Set to 1 for no dimming (preserve transparency)
         -- * an absolute number of cells when > 1
         -- * a percentage of the width / height of the editor when <= 1
         -- * a function that returns the width or the height
