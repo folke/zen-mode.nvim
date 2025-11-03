@@ -65,9 +65,11 @@ Install the plugin with your preferred package manager:
     -- * a function that returns the width or the height
     width = 120, -- width of the Zen window
     height = 1, -- height of the Zen window
-    -- by default, no options are changed for the Zen window
+    -- by default, only fillchars are changed for the zen window
     -- uncomment any of the options below, or add other vim.wo options you want to apply
     options = {
+      -- set fillchars to an empty string or vim.o.fillchars to keep them as they are
+      fillchars = "eob: ,fold: ,vert: ", -- disable end of buffer, fold, and vertical separators
       -- signcolumn = "no", -- disable signcolumn
       -- number = false, -- disable number column
       -- relativenumber = false, -- disable relative numbers
