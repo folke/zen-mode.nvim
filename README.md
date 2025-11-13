@@ -119,7 +119,7 @@ Install the plugin with your preferred package manager:
     neovide = {
         enabled = false,
         -- Will multiply the current scale factor by this number
-        scale = 1.2
+        scale = 1.2,
         -- disable the Neovide animations while in Zen mode
         disable_animations = {
                 neovide_animation_length = 0,
