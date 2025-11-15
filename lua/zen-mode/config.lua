@@ -75,6 +75,7 @@ local defaults = {
         neovide_cursor_vfx_mode = "",
       },
     },
+    dont_exit_on_win_enter = { enabled = false }, -- If enabled, don't exit zen mode when a WinEnter event is fired. This happens if you click outside of the ZenMode window
   },
   -- callback where you can add custom code when the zen window opens
   on_open = function(_win) end,

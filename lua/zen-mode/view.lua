@@ -202,16 +202,16 @@ function M.create(opts)
   -- TODO: listen for WinNew and BufEnter. When a new window, or bufenter in a new window, close zen mode
   -- unless it's in a float
   -- TODO: when the cursor leaves the window, we close zen mode, or prevent leaving the window
-  local augroup = [[
+  local augroup = string.format([[
     augroup Zen
       autocmd!
       autocmd WinClosed %d ++once ++nested lua require("zen-mode.view").close()
-      autocmd WinEnter * lua require("zen-mode.view").on_win_enter()
+      autocmd WinEnter * lua require("zen-mode.view").on_win_enter(%s)
       autocmd CursorMoved * lua require("zen-mode.view").fix_layout()
       autocmd VimResized * lua require("zen-mode.view").fix_layout(true)
       autocmd CursorHold * lua require("zen-mode.view").fix_layout()
       autocmd BufWinEnter * lua require("zen-mode.view").on_buf_win_enter()
-    augroup end]]
+    augroup end]], M.win, tostring(opts.dont_exit_on_win_enter))
 
   vim.api.nvim_exec(augroup:format(M.win, M.win), false)
 end
@@ -241,7 +241,11 @@ function M.on_buf_win_enter()
   end
 end
 
-function M.on_win_enter()
+function M.on_win_enter(dont_exit_on_win_enter)
+  if dont_exit_on_win_enter then
+    return M
+  end
+
   local win = vim.api.nvim_get_current_win()
   if win ~= M.win and not M.is_float(win) then
     -- HACK: when returning from a float window, vim initially enters the parent window.
